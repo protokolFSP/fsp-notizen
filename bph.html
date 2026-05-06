@@ -1,0 +1,738 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BPH – FSP-Notizen</title>
+  <meta name="description" content="BPH – strukturierte FSP-Lernnotizen." />
+  <style>
+    :root{
+      --bg:#ffffff;
+      --text:#111827;
+      --muted:#6b7280;
+      --line:#e5e7eb;
+      --soft:#f8fafc;
+
+      --blue-bg:#eff6ff;
+      --blue:#1d4ed8;
+
+      --green-bg:#ecfdf5;
+      --green:#047857;
+
+      --amber-bg:#fffbeb;
+      --amber:#b45309;
+
+      --rose-bg:#fff1f2;
+      --rose:#be123c;
+
+      --violet-bg:#f5f3ff;
+      --violet:#6d28d9;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font: 16px/1.65 Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    a, button {
+      -webkit-tap-highlight-color: rgba(0,0,0,0.06);
+    }
+
+    .page {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 24px 16px 56px;
+    }
+
+    .back {
+      display: inline-block;
+      margin-bottom: 14px;
+      color: var(--muted);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .hero {
+      border: 1px solid var(--line);
+      background: #fff;
+      border-radius: 18px;
+      padding: 24px;
+      margin-bottom: 18px;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      margin-bottom: 10px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    h1, h2, h3 {
+      margin: 0;
+      line-height: 1.2;
+    }
+
+    h1 {
+      font-size: clamp(1.9rem, 3.8vw, 2.8rem);
+      margin-bottom: 12px;
+    }
+
+    .lead {
+      margin: 0;
+      color: var(--muted);
+      max-width: 72ch;
+    }
+
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 250px minmax(0, 1fr);
+      gap: 18px;
+      align-items: start;
+    }
+
+    .toc {
+      position: sticky;
+      top: 16px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 14px;
+      background: #fff;
+    }
+
+    .toc h2 {
+      font-size: 1rem;
+      margin-bottom: 10px;
+    }
+
+    .toc a {
+      display: block;
+      color: var(--text);
+      text-decoration: none;
+      padding: 10px 12px;
+      border-radius: 12px;
+      margin-bottom: 6px;
+      background: var(--soft);
+      border: 1px solid transparent;
+      font-weight: 600;
+    }
+
+    .toc a:hover {
+      background: #fff;
+      border-color: var(--line);
+    }
+
+    .content {
+      display: grid;
+      gap: 18px;
+    }
+
+    .card {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: #fff;
+      overflow: hidden;
+    }
+
+    .card-header {
+      padding: 18px 18px 0;
+    }
+
+    .card-body {
+      padding: 16px 18px 20px;
+    }
+
+    .card-title {
+      font-size: 1.3rem;
+      margin-bottom: 6px;
+    }
+
+    .card-subtitle {
+      color: var(--muted);
+      margin: 0;
+    }
+
+    .section {
+      padding-top: 18px;
+      margin-top: 18px;
+      border-top: 1px solid var(--line);
+    }
+
+    .section:first-child {
+      padding-top: 0;
+      margin-top: 0;
+      border-top: 0;
+    }
+
+    .section h3 {
+      font-size: 1.04rem;
+      margin-bottom: 10px;
+    }
+
+    p {
+      margin: 0 0 12px;
+      overflow-wrap: anywhere;
+    }
+
+    ul {
+      margin: 0;
+      padding-left: 20px;
+    }
+
+    li {
+      overflow-wrap: anywhere;
+    }
+
+    li + li {
+      margin-top: 8px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .note-box {
+      border: 1px solid var(--line);
+      background: var(--soft);
+      border-radius: 16px;
+      padding: 14px;
+      overflow: hidden;
+    }
+
+    .chip {
+      display: inline-block;
+      padding: .14rem .5rem;
+      border-radius: 999px;
+      font-size: .92em;
+      font-weight: 700;
+      border: 1px solid transparent;
+      white-space: normal;
+      overflow-wrap: anywhere;
+      max-width: 100%;
+      vertical-align: baseline;
+    }
+
+    .urology { background: var(--blue-bg); color: var(--blue); border-color: #bfdbfe; }
+    .diagnostics { background: var(--green-bg); color: var(--green); border-color: #a7f3d0; }
+    .therapy { background: var(--amber-bg); color: var(--amber); border-color: #fde68a; }
+    .complications { background: var(--rose-bg); color: var(--rose); border-color: #fecdd3; }
+    .exam { background: var(--violet-bg); color: var(--violet); border-color: #ddd6fe; }
+
+    .sentence-term {
+      display: inline;
+      padding: 0;
+      border: 0;
+      border-radius: 0;
+      background: transparent !important;
+      color: inherit !important;
+      font-weight: 700;
+      max-width: none;
+    }
+
+    .term {
+      position: relative;
+      display: inline;
+      cursor: help;
+      border-bottom: 1px dashed currentColor;
+      text-decoration-skip-ink: auto;
+    }
+
+    .term button {
+      all: unset;
+      display: inline;
+      cursor: help;
+      white-space: normal;
+      line-height: inherit;
+      font: inherit;
+      color: inherit;
+    }
+
+    .tooltip {
+      position: absolute;
+      left: 0;
+      bottom: calc(100% + 10px);
+      width: min(260px, 72vw);
+      background: #111827;
+      color: #fff;
+      border-radius: 12px;
+      padding: 10px 12px;
+      font-size: 0.92rem;
+      line-height: 1.5;
+      box-shadow: 0 10px 30px rgba(0,0,0,.16);
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(6px);
+      transition: opacity .18s ease, transform .18s ease, visibility .18s ease;
+      z-index: 30;
+      white-space: normal;
+      pointer-events: none;
+      font-weight: 500;
+    }
+
+    .tooltip::after {
+      content: "";
+      position: absolute;
+      left: 18px;
+      top: 100%;
+      border: 7px solid transparent;
+      border-top-color: #111827;
+    }
+
+    .tooltip-label {
+      display: block;
+      font-size: 0.76rem;
+      letter-spacing: .02em;
+      text-transform: uppercase;
+      opacity: .72;
+      margin-bottom: 4px;
+      font-weight: 700;
+    }
+
+    .term:hover .tooltip,
+    .term:focus-within .tooltip,
+    .term.is-open .tooltip {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .small {
+      color: var(--muted);
+      font-size: .95rem;
+    }
+
+    .footer {
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: .95rem;
+      text-align: center;
+    }
+
+    @media (max-width: 920px) {
+      .layout { grid-template-columns: 1fr; }
+      .toc { position: static; }
+      .grid-2 { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 640px) {
+      body {
+        font-size: 17px;
+        line-height: 1.7;
+      }
+
+      .page {
+        padding: 16px 12px 36px;
+      }
+
+      .hero {
+        padding: 18px;
+        border-radius: 14px;
+        margin-bottom: 16px;
+      }
+
+      h1 {
+        font-size: 1.8rem;
+      }
+
+      .lead {
+        font-size: 1rem;
+      }
+
+      .toc {
+        padding: 12px;
+        border-radius: 14px;
+      }
+
+      .toc a {
+        padding: 12px 14px;
+        margin-bottom: 8px;
+        font-size: 0.98rem;
+      }
+
+      .card {
+        border-radius: 14px;
+      }
+
+      .card-header {
+        padding: 16px 16px 0;
+      }
+
+      .card-body {
+        padding: 14px 16px 18px;
+      }
+
+      .card-title {
+        font-size: 1.18rem;
+      }
+
+      .note-box {
+        padding: 14px;
+        border-radius: 14px;
+      }
+
+      .chip {
+        line-height: 1.45;
+        padding: .22rem .55rem;
+      }
+
+      .tooltip {
+        width: min(280px, calc(100vw - 40px));
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <a class="back" href="../index.html">← Zurück zur Übersicht</a>
+
+    <section class="hero">
+      <span class="eyebrow">FSP Lernnotizen</span>
+      <h1>BPH – Benigne Prostatahyperplasie</h1>
+      <p class="lead">
+        Strukturierte, leicht lesbare Notizen für Erklärung, Zusammenfassung, Anamnese, Differenzialdiagnosen und beruhigende Sätze.
+        Fachbegriffe zeigen beim Darüberfahren oder Antippen eine kurze patientengerechte Erklärung.
+      </p>
+      <div class="legend" aria-label="Legende">
+        <span class="chip urology">Urologische Begriffe</span>
+        <span class="chip diagnostics">Spezifische Befunde</span>
+        <span class="chip therapy">Therapie</span>
+        <span class="chip complications">Komplikationen / DD</span>
+        <span class="chip exam">FSP-Redemittel</span>
+      </div>
+    </section>
+
+    <div class="layout">
+      <nav class="toc" aria-label="Inhaltsverzeichnis">
+        <h2>Inhalt</h2>
+        <a href="#erklaerung">Erklärung</a>
+        <a href="#zusammenfassung">Zusammenfassung</a>
+        <a href="#anamnese">Anamnese</a>
+        <a href="#dd">Differenzialdiagnosen</a>
+        <a href="#beruhigende-saetze">Beruhigende Sätze</a>
+      </nav>
+
+      <section class="content">
+        <article id="erklaerung" class="card">
+          <header class="card-header">
+            <h2 class="card-title">BPH – Erklärung für die FSP-Prüfung</h2>
+            <p class="card-subtitle">Klar gegliederte Erklärung mit Untersuchung, Diagnostik, Therapie und Differenzialdiagnosen.</p>
+          </header>
+          <div class="card-body">
+            <section class="section">
+              <h3>Einleitung</h3>
+              <p>Bei der <span class="chip urology term"><button type="button" aria-label="benigne Prostatahyperplasie Erklärung">benignen Prostatahyperplasie</button><span class="tooltip"><span class="tooltip-label">Patientengerecht</span>Gutartige Vergrößerung der Prostata.</span></span> handelt es sich um eine gutartige Vergrößerung der <span class="chip urology term"><button type="button" aria-label="Prostata Erklärung">Prostata</button><span class="tooltip"><span class="tooltip-label">Patientengerecht</span>Die Prostata ist eine Drüse des Mannes. Sie liegt unter der Harnblase und umschließt den Anfang der Harnröhre.</span></span>, die vor allem ältere Männer betrifft. Durch die Vergrößerung der Prostata kommt es zu einer Einengung der <span class="chip urology term"><button type="button" aria-label="Harnröhre Erklärung">Harnröhre</button><span class="tooltip"><span class="tooltip-label">Patientengerecht</span>Die Harnröhre leitet den Urin aus der Blase nach außen.</span></span>, wodurch typische <span class="chip urology term"><button type="button" aria-label="Miktionsbeschwerden Erklärung">Miktionsbeschwerden</button><span class="tooltip"><span class="tooltip-label">Patientengerecht</span>Sammelbegriff für Beschwerden beim Wasserlassen.</span></span> entstehen.</p>
+            </section>
+
+            <section class="section">
+              <h3>Symptome</h3>
+              <p>Die Patienten klagen häufig über <span class="chip urology term"><button type="button" aria-label="Pollakisurie Erklärung">Pollakisurie</button><span class="tooltip"><span class="tooltip-label">Patientengerecht</span>Sehr häufiges Wasserlassen, meist in kleinen Mengen.</span></span>, <span class="chip urology term"><button type="button" aria-label="Nykturie Erklärung">Nykturie</button><span class="tooltip"><span class="tooltip-label">Patientengerecht</span>Mehrmaliges Wasserlassen in der Nacht.</span></span>, abgeschwächten <span class="chip urology term"><button type="button" aria-label="Harnstrahl Erklärung">Harnstrahl</button><span class="tooltip"><span class="tooltip-label">Patientengerecht</span>Wie stark oder schwach der Urin beim Wasserlassen kommt.</span></span>, Startschwierigkeiten beim Wasserlassen sowie <span class="chip urology term"><button type="button" aria-label="Nachträufeln Erklärung">Nachträufeln</button><span class="tooltip"><span class="tooltip-label">Patientengerecht</span>Nach dem Wasserlassen kommen noch ein paar Tropfen Urin nach.</span></span>. Außerdem berichten viele Patienten über das Gefühl einer unvollständigen <span class="chip urology term"><button type="button" aria-label="Blasenentleerung Erklärung">Blasenentleerung</button><span class="tooltip"><span class="tooltip-label">Patientengerecht</span>Die Blase wird beim Wasserlassen nicht richtig leer.</span></span>.</p>
+            </section>
+
+            <section class="section">
+              <h3>Diagnostik</h3>
+              <p>Die Diagnostik beginnt mit einer ausführlichen Anamnese. Danach erfolgt die körperliche Untersuchung einschließlich der digitalen rektalen Untersuchung. Typischerweise zeigt sich dabei eine vergrößerte, glatt begrenzte und elastische Prostata.</p>
+            </section>
+
+            <section class="section">
+              <h3>Labor und apparative Diagnostik</h3>
+              <p>Zusätzlich werden Laboruntersuchungen durchgeführt, darunter Urinstatus, PSA-Wert und Nierenwerte. Apparativ erfolgen eine Sonografie der Prostata, die Restharnmessung sowie eine Uroflowmetrie. In bestimmten Fällen kann auch eine Zystoskopie notwendig sein.</p>
+            </section>
+
+            <section class="section">
+              <h3>Konservative Therapie</h3>
+              <p>Bei leichten Beschwerden empfiehlt man zunächst konservative Maßnahmen. Dazu gehören eine Reduktion der Trinkmenge am Abend sowie der Verzicht auf Alkohol und koffeinhaltige Getränke.</p>
+            </section>
+
+            <section class="section">
+              <h3>Medikamentöse Therapie</h3>
+              <p>Zur medikamentösen Therapie gehören <span class="chip therapy">Alpha-1-Blocker</span> wie <span class="chip therapy">Tamsulosin</span>. Diese entspannen die glatte Muskulatur und verbessern den <span class="chip urology term"><button type="button" aria-label="Harnfluss Erklärung">Harnfluss</button><span class="tooltip"><span class="tooltip-label">Patientengerecht</span>Beschreibt, wie gut der Urin aus der Blase abfließen kann.</span></span>. Außerdem können <span class="chip therapy">5-Alpha-Reduktase-Hemmer</span> wie <span class="chip therapy">Finasterid</span> eingesetzt werden, die langfristig zu einer Verkleinerung der Prostata führen.</p>
+            </section>
+
+            <section class="section">
+              <h3>Operative Therapie</h3>
+              <p>Falls <span class="chip complications">Komplikationen</span> wie <span class="chip complications term"><button type="button" aria-label="Harnverhalt Erklärung">Harnverhalt</button><span class="tooltip"><span class="tooltip-label">Patientengerecht</span>Die Blase kann nicht mehr richtig entleert werden.</span></span>, rezidivierende <span class="chip complications term"><button type="button" aria-label="Harnwegsinfektionen Erklärung">Harnwegsinfektionen</button><span class="tooltip"><span class="tooltip-label">Patientengerecht</span>Infektionen der Harnwege, oft mit Brennen oder Fieber.</span></span> oder starke Beschwerden auftreten, ist eine operative Therapie indiziert. Der Goldstandard ist die <span class="chip therapy term"><button type="button" aria-label="transurethrale Resektion der Prostata Erklärung">transurethrale Resektion der Prostata</button><span class="tooltip"><span class="tooltip-label">Patientengerecht</span>Vergrößertes Prostatagewebe wird ohne äußeren Schnitt entfernt.</span></span>, kurz <span class="chip therapy term"><button type="button" aria-label="TUR-P Erklärung">TUR-P</button><span class="tooltip"><span class="tooltip-label">Patientengerecht</span>Operation zur Entfernung von Prostatagewebe über die Harnröhre.</span></span>.</p>
+            </section>
+          </div>
+        </article>
+
+        <article id="zusammenfassung" class="card">
+          <header class="card-header">
+            <h2 class="card-title">Benigne Prostatahyperplasie (BPH) – FSP Zusammenfassung</h2>
+            <p class="card-subtitle">Kompakte Wiederholung in übersichtlichen klinischen Lernblöcken.</p>
+          </header>
+          <div class="card-body">
+            <div class="grid-2">
+              <section class="note-box">
+                <h3>Definition</h3>
+                <p>Die benigne Prostatahyperplasie ist eine gutartige Vergrößerung der Prostata.</p>
+                <p>Sie tritt häufig bei älteren Männern auf und kann zu Beschwerden beim Wasserlassen führen.</p>
+              </section>
+
+              <section class="note-box">
+                <h3>Diagnostik der BPH</h3>
+                <ul>
+                  <li>Anamnese: Pollakisurie, Nykturie, abgeschwächter Harnstrahl, Startschwierigkeiten, Nachträufeln, Gefühl der unvollständigen Blasenentleerung.</li>
+                  <li>Körperliche Untersuchung: Allgemeine Untersuchung, Palpation des Abdomens, digitale rektale Untersuchung.</li>
+                  <li>Typischer FSP-Satz: Bei der digitalen rektalen Untersuchung zeigt sich eine vergrößerte, glatt begrenzte und elastische Prostata.</li>
+                  <li>Labor: Urinstatus, Urinkultur, PSA-Wert, Nierenwerte.</li>
+                  <li>Apparative Diagnostik: Sonografie, Restharnmessung, Uroflowmetrie, ggf. Zystoskopie.</li>
+                </ul>
+              </section>
+            </div>
+
+            <section class="section">
+              <h3>Therapie der BPH</h3>
+              <ul>
+                <li>Konservative Therapie: abends weniger trinken, Alkohol und Kaffee reduzieren, regelmäßige Blasenentleerung.</li>
+                <li><span class="chip therapy">Alpha-1-Blocker</span>: <span class="chip therapy">Tamsulosin</span>, <span class="chip therapy">Alfuzosin</span>. Wirkung: Verbesserung des Harnflusses. Nebenwirkungen: Schwindel, Hypotonie.</li>
+                <li><span class="chip therapy">5-Alpha-Reduktase-Hemmer</span>: <span class="chip therapy">Finasterid</span>, <span class="chip therapy">Dutasterid</span>. Wirkung: langfristige Verkleinerung der Prostata. Nebenwirkungen: Libidoverlust, Erektionsstörungen.</li>
+              </ul>
+            </section>
+
+            <section class="section">
+              <h3>Operative Therapie</h3>
+              <ul>
+                <li>Indikationen: Harnverhalt, rezidivierende Harnwegsinfekte, Restharnbildung, Nierenfunktionsstörung, starke Beschwerden.</li>
+                <li>Goldstandard: <span class="chip therapy">TUR-P</span> (Transurethrale Resektion der Prostata).</li>
+                <li>Typischer FSP-Satz: Goldstandard der operativen Therapie ist die TUR-P.</li>
+              </ul>
+            </section>
+
+            <section class="section">
+              <h3>Wichtige FSP-Redemittel</h3>
+              <ul>
+                <li><span class="chip exam">Die Prostata ist gutartig vergrößert.</span></li>
+                <li><span class="chip exam">Dadurch wird die Harnröhre eingeengt.</span></li>
+                <li><span class="chip exam">Deshalb haben Sie Probleme beim Wasserlassen.</span></li>
+                <li><span class="chip exam">Zunächst versuchen wir eine medikamentöse Behandlung.</span></li>
+                <li><span class="chip exam">Falls die Beschwerden stärker werden, kommt eine Operation infrage.</span></li>
+              </ul>
+            </section>
+          </div>
+        </article>
+
+        <article id="anamnese" class="card">
+          <header class="card-header">
+            <h2 class="card-title">BPH – FSP Anamnese Fragen</h2>
+            <p class="card-subtitle">Geordnet nach Themenblöcken für schnelles klinisches Lernen und Wiederholen.</p>
+          </header>
+          <div class="card-body">
+            <div class="grid-2">
+              <section class="note-box">
+                <h3>Allgemeine Fragen</h3>
+                <ul>
+                  <li>Seit wann haben Sie Beschwerden beim Wasserlassen?</li>
+                  <li>Wie häufig müssen Sie Wasser lassen?</li>
+                  <li>Müssen Sie nachts häufig zur Toilette?</li>
+                  <li>Haben Sie Schwierigkeiten, das Wasserlassen zu beginnen?</li>
+                  <li>Ist der Harnstrahl schwach oder unterbrochen?</li>
+                  <li>Haben Sie das Gefühl, dass die Blase nicht vollständig entleert wird?</li>
+                  <li>Müssen Sie nach dem Wasserlassen nachträufeln?</li>
+                </ul>
+              </section>
+
+              <section class="note-box">
+                <h3>Begleitsymptome</h3>
+                <ul>
+                  <li>Haben Sie Schmerzen oder Brennen beim Wasserlassen?</li>
+                  <li>Haben Sie Blut im Urin bemerkt?</li>
+                  <li>Leiden Sie unter plötzlich starkem Harndrang?</li>
+                  <li>Haben Sie ungewollt Urin verloren?</li>
+                  <li>Hatten Sie Fieber oder Schüttelfrost?</li>
+                </ul>
+              </section>
+
+              <section class="note-box">
+                <h3>Komplikationen / Ausschlussfragen</h3>
+                <ul>
+                  <li>Hatten Sie schon einmal einen Harnverhalt?</li>
+                  <li>Haben Sie Schmerzen im Unterbauch oder Rücken?</li>
+                  <li>Gab es früher Harnwegsinfektionen oder Nierenprobleme?</li>
+                </ul>
+              </section>
+
+              <section class="note-box">
+                <h3>Vorerkrankungen und Medikamente</h3>
+                <ul>
+                  <li>Haben Sie Vorerkrankungen wie Diabetes oder neurologische Erkrankungen?</li>
+                  <li>Nehmen Sie regelmäßig Medikamente ein?</li>
+                  <li>Wurden Sie schon einmal an der Prostata operiert?</li>
+                </ul>
+              </section>
+
+              <section class="note-box">
+                <h3>Familienanamnese</h3>
+                <ul>
+                  <li>Gibt es in Ihrer Familie Prostataerkrankungen oder Prostatakrebs?</li>
+                </ul>
+              </section>
+
+              <section class="note-box">
+                <h3>Sozialanamnese</h3>
+                <ul>
+                  <li>Rauchen oder trinken Sie Alkohol?</li>
+                  <li>Wie viel trinken Sie täglich?</li>
+                </ul>
+              </section>
+            </div>
+
+            <section class="section">
+              <h3>W-Fragen für die FSP</h3>
+              <ul>
+                <li><span class="chip exam">Was führt Sie heute zu uns?</span></li>
+                <li><span class="chip exam">Seit wann haben Sie Probleme beim Wasserlassen?</span></li>
+                <li><span class="chip exam">Wie oft müssen Sie tagsüber Wasser lassen?</span></li>
+                <li><span class="chip exam">Wie häufig müssen Sie nachts zur Toilette?</span></li>
+                <li><span class="chip exam">Wie ist Ihr Harnstrahl? Ist er schwach oder unterbrochen?</span></li>
+                <li><span class="chip exam">Haben Sie Schwierigkeiten, mit dem Wasserlassen zu beginnen?</span></li>
+                <li><span class="chip exam">Haben Sie das Gefühl, dass die Blase nicht vollständig leer wird?</span></li>
+                <li><span class="chip exam">Kommt es zu Nachträufeln?</span></li>
+                <li><span class="chip exam">Haben Sie Schmerzen oder Brennen beim Wasserlassen?</span></li>
+                <li><span class="chip exam">Haben Sie Blut im Urin bemerkt?</span></li>
+                <li><span class="chip exam">Gab es plötzlich starken Harndrang?</span></li>
+                <li><span class="chip exam">Hatten Sie früher ähnliche Beschwerden?</span></li>
+                <li><span class="chip exam">Welche Medikamente nehmen Sie regelmäßig ein?</span></li>
+                <li><span class="chip exam">Welche Vorerkrankungen haben Sie?</span></li>
+                <li><span class="chip exam">Gibt es Prostataerkrankungen in Ihrer Familie?</span></li>
+                <li><span class="chip exam">Wie viel trinken Sie täglich?</span></li>
+                <li><span class="chip exam">Rauchen Sie oder trinken Sie Alkohol?</span></li>
+              </ul>
+            </section>
+          </div>
+        </article>
+
+        <article id="dd" class="card">
+          <header class="card-header">
+            <h2 class="card-title">Differenzialdiagnosen – klinische Übersicht</h2>
+            <p class="card-subtitle">Kompakte, ärztlich orientierte Übersicht zur schnellen Abgrenzung.</p>
+          </header>
+          <div class="card-body">
+            <div class="grid-2">
+              <section class="note-box">
+                <h3><span class="chip complications term"><button type="button" aria-label="Prostatakarzinom Erklärung">Prostatakarzinom</button><span class="tooltip"><span class="tooltip-label">Patientengerecht</span>Prostatakrebs, also eine bösartige Erkrankung der Prostata.</span></span></h3>
+                <p class="small">Wichtige Differenzialdiagnose bei Miktionsbeschwerden und Prostatavergrößerung. Klinische Abgrenzung durch Untersuchung, PSA-Wert und weitere Diagnostik.</p>
+              </section>
+
+              <section class="note-box">
+                <h3><span class="chip complications term"><button type="button" aria-label="Prostatitis Erklärung">Prostatitis</button><span class="tooltip"><span class="tooltip-label">Patientengerecht</span>Entzündung der Prostata, oft mit Schmerzen oder Brennen.</span></span></h3>
+                <p class="small">Eher an entzündliche Genese denken bei Schmerzen, Brennen beim Wasserlassen, Fieber oder druckschmerzhafter Prostata.</p>
+              </section>
+
+              <section class="note-box">
+                <h3><span class="chip complications term"><button type="button" aria-label="Harnwegsinfektion Erklärung">Harnwegsinfektion</button><span class="tooltip"><span class="tooltip-label">Patientengerecht</span>Infektion der Harnwege mit Brennen oder Harndrang.</span></span></h3>
+                <p class="small">Differenzialdiagnostisch relevant vor allem bei Dysurie, Pollakisurie, Fieber oder pathologischem Urinstatus.</p>
+              </section>
+
+              <section class="note-box">
+                <h3><span class="chip complications term"><button type="button" aria-label="Blasenkarzinom Erklärung">Blasenkarzinom</button><span class="tooltip"><span class="tooltip-label">Patientengerecht</span>Bösartige Erkrankung der Harnblase.</span></span></h3>
+                <p class="small">Mitbedenken insbesondere bei Hämaturie oder unklaren persistierenden Beschwerden.</p>
+              </section>
+
+              <section class="note-box">
+                <h3><span class="chip complications term"><button type="button" aria-label="neurogene Blasenstörung Erklärung">neurogene Blasenstörung</button><span class="tooltip"><span class="tooltip-label">Patientengerecht</span>Die Blasenfunktion ist durch eine Nervenstörung beeinträchtigt.</span></span></h3>
+                <p class="small">Besonders relevant bei neurologischen Vorerkrankungen, Entleerungsstörung oder atypischer Symptomkonstellation.</p>
+              </section>
+            </div>
+          </div>
+        </article>
+
+        <article id="beruhigende-saetze" class="card">
+          <header class="card-header">
+            <h2 class="card-title">Beruhigende Sätze für die FSP – BPH</h2>
+            <p class="card-subtitle">Empathische und beruhigende Formulierungen für typische Patientengespräche.</p>
+          </header>
+          <div class="card-body">
+            <div class="grid-2">
+              <section class="note-box">
+                <h3>Allgemeine beruhigende Sätze</h3>
+                <ul>
+                  <li><span class="chip exam sentence-term">Machen Sie sich bitte keine Sorgen.</span></li>
+                  <li><span class="chip exam sentence-term">Nach den bisherigen Untersuchungen handelt es sich wahrscheinlich um eine gutartige Erkrankung.</span></li>
+                  <li><span class="chip exam sentence-term">Eine gutartige Prostatavergrößerung bedeutet nicht automatisch Krebs.</span></li>
+                  <li><span class="chip exam sentence-term">Im Moment gibt es keinen eindeutigen Hinweis auf Prostatakrebs.</span></li>
+                  <li><span class="chip exam sentence-term">Wir werden weitere Untersuchungen durchführen, um sicherzugehen.</span></li>
+                  <li><span class="chip exam sentence-term">Ihre Beschwerden kommen häufig bei Männern in Ihrem Alter vor.</span></li>
+                  <li><span class="chip exam sentence-term">Die Erkrankung ist in den meisten Fällen gut behandelbar.</span></li>
+                  <li><span class="chip exam sentence-term">Viele Patienten können mit Medikamenten gut behandelt werden.</span></li>
+                </ul>
+              </section>
+
+              <section class="note-box">
+                <h3>Wenn der Patient fragt: „Muss ich im Krankenhaus bleiben?“</h3>
+                <ul>
+                  <li><span class="chip exam sentence-term">Das hängt vom Untersuchungsergebnis ab.</span></li>
+                  <li><span class="chip exam sentence-term">Voraussichtlich müssen Sie nicht lange im Krankenhaus bleiben.</span></li>
+                  <li><span class="chip exam sentence-term">Falls eine Operation notwendig sein sollte, bleiben Sie wahrscheinlich nur wenige Tage stationär.</span></li>
+                  <li><span class="chip exam sentence-term">Im Moment planen wir zunächst weitere Untersuchungen und eine medikamentöse Behandlung.</span></li>
+                </ul>
+              </section>
+
+              <section class="note-box">
+                <h3>Wenn der Patient fragt: „Habe ich Krebs?“</h3>
+                <ul>
+                  <li><span class="chip exam sentence-term">Das können wir im Moment noch nicht sicher sagen.</span></li>
+                  <li><span class="chip exam sentence-term">Bisher gibt es keinen sicheren Hinweis auf Krebs.</span></li>
+                  <li><span class="chip exam sentence-term">Eine vergrößerte Prostata ist häufig gutartig.</span></li>
+                  <li><span class="chip exam sentence-term">Zur Sicherheit kontrollieren wir den PSA-Wert und führen weitere Untersuchungen durch.</span></li>
+                </ul>
+              </section>
+
+              <section class="note-box">
+                <h3>Empathische Redemittel</h3>
+                <ul>
+                  <li><span class="chip exam sentence-term">Ich verstehe, dass Sie sich Sorgen machen.</span></li>
+                  <li><span class="chip exam sentence-term">Das ist verständlich.</span></li>
+                  <li><span class="chip exam sentence-term">Wir kümmern uns gut um Sie.</span></li>
+                  <li><span class="chip exam sentence-term">Sie können jederzeit Fragen stellen.</span></li>
+                </ul>
+              </section>
+            </div>
+          </div>
+        </article>
+
+        <p class="footer">BPH – strukturierte FSP-Notizen in klarer Webansicht.</p>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    document.querySelectorAll('.term').forEach((term) => {
+      term.addEventListener('click', (event) => {
+        if (window.matchMedia('(hover: none)').matches) {
+          event.stopPropagation();
+          document.querySelectorAll('.term.is-open').forEach((el) => {
+            if (el !== term) el.classList.remove('is-open');
+          });
+          term.classList.toggle('is-open');
+        }
+      });
+    });
+
+    document.addEventListener('click', (event) => {
+      if (!event.target.closest('.term')) {
+        document.querySelectorAll('.term.is-open').forEach((el) => el.classList.remove('is-open'));
+      }
+    });
+  </script>
+</body>
+</html>
