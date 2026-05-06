@@ -1,6 +1,5 @@
-from pathlib import Path
 
-index_html = """<!doctype html>
+<!doctype html>
 <html lang="de">
 <head>
   <meta charset="utf-8" />
@@ -573,10 +572,4 @@ bph_html = """<!doctype html>
   </main>
 </body>
 </html>
-"""
 
-Path("/mnt/data/index.html").write_text(index_html, encoding="utf-8")
-Path("/mnt/data/bph.html").write_text(bph_html, encoding="utf-8")
-
-print("Saved /mnt/data/index.html")
-print("Saved /mnt/data/bph.html")
